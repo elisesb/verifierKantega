@@ -19,4 +19,17 @@ public class ResponseController {
     public String getTestValue() {
         return test;
     }
+
+    @GetMapping("/forkorttest")
+    public String getForkortelse(String test){
+        int startIndex = test.indexOf("ey");
+        int endIndex = test.indexOf("&state");
+
+        if (startIndex != -1 && endIndex != -1) {
+            return test.substring(startIndex, endIndex);
+        }
+
+        return null; // Eller håndter feilen på en annen måte
+    }
+
 }
