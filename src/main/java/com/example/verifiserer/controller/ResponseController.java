@@ -1,5 +1,7 @@
 package com.example.verifiserer.controller;
 
+import com.example.verifiserer.service.ResponseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -7,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 public class ResponseController {
 
     String test;
+    private final ResponseService responseService;
+
+    @Autowired
+    public ResponseController(ResponseService responseService){
+        this.responseService = responseService;
+    }
 
     @PostMapping("/callback")
     public String callBack(@RequestBody String requestBody){
@@ -19,5 +27,14 @@ public class ResponseController {
     public String getTestValue() {
         return test;
     }
+
+
+    @GetMapping("/token")
+    public String getToken() {
+        return responseService.getJustToken(test);
+    }
+
+
+
 
 }
