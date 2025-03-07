@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 @RequestMapping("/api")
 public class QRCodeController {
-
+// slettes hvis ikke den brukes
     @Autowired
     private QRCodeService qrCodeService;
 

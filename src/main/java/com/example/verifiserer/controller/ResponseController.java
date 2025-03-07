@@ -19,4 +19,5 @@ public class ResponseController {
     public String getTestValue() {
         return test;
     }
+
 }

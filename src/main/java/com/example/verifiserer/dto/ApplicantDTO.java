@@ -8,14 +8,16 @@ public class ApplicantDTO {
     private String email;
     private String phone;
     private LocalDateTime createdAt;
+    private String cvPath;
 
 
-    public ApplicantDTO(/*Long id,*/ String name, String email, String phone, LocalDateTime createdAt) {
+    public ApplicantDTO(/*Long id,*/ String name, String email, String phone, LocalDateTime createdAt, String cvPath) {
         //this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.createdAt = createdAt;
+        this.cvPath = cvPath;
     }
 
 
@@ -57,6 +59,14 @@ public class ApplicantDTO {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getCvPath() {
+        return cvPath;
+    }
+
+    public void setCvPath(String cvPath) {
+        this.cvPath = cvPath;
     }
 }
 

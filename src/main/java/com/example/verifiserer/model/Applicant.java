@@ -31,16 +31,19 @@ public class Applicant {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "cv_path")
+    private String cvPath;
 
     public Applicant() {
     }
 
 
-    public Applicant(Long id, String name, String email, String phone) {
+    public Applicant(Long id, String name, String email, String phone, String cvPath) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.cvPath = cvPath;
     }
 
 
@@ -81,5 +84,13 @@ public class Applicant {
 
     public LocalDateTime getCreatedAt(){
         return createdAt;
+    }
+
+    public String getCvPath() {
+        return cvPath;
+    }
+
+    public void setCvPath(String cvPath) {
+        this.cvPath = cvPath;
     }
 }
