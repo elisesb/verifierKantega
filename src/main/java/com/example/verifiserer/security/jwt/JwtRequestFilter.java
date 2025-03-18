@@ -6,8 +6,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import java.util.ArrayList;
 
 /*import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -15,10 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;*/
 import java.io.IOException;
 
+@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    /*@Autowired
-    private JwtService jwtService;*/
+    @Autowired
+    private JwtService jwtService;
 
 
 
@@ -27,13 +31,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = request.getHeader("Authorization");
 
-       /* if (token != null && token.startsWith("Bearer ")) {
+        if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7); // Fjern "Bearer " prefix
             if (jwtService.validateToken(token)) {
                 String username = jwtService.extractUsername(token);
                 SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>()));
             }
-        }*/
+        }
         chain.doFilter(request, response);
     }
 
