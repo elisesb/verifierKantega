@@ -4,6 +4,7 @@ package com.example.verifiserer.controller;
 import com.example.verifiserer.dto.ApplicantDTO;
 import com.example.verifiserer.repository.ApplicantRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class ApplicantController {
 
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<ApplicantDTO>> getAllApplicants() {
         List<ApplicantDTO> applicants = applicantRepository.findAll()
                 .stream()
@@ -39,17 +41,5 @@ public class ApplicantController {
         return ResponseEntity.ok(applicants);
     }
 
-    // Hent en søker basert på e-post
-    /*@GetMapping("/{email}")
-    public ResponseEntity<ApplicantDTO> getApplicantByEmail(@PathVariable String email) {
-        return applicantRepository.findByEmail(email)
-                .map(applicant -> new ApplicantDTO(
-                        applicant.getName(),
-                        applicant.getEmail(),
-                        applicant.getPhone(),
-                        applicant.getCreatedAt()
-                ))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }*/
+
 }

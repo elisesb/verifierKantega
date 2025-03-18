@@ -40,13 +40,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for the application
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**", "/admin/login","/api/submit-application", "/api/applicants", "/api/verifisere/*").permitAll()
+                        .requestMatchers("/h2-console/**", "/admin/login","/api/submit-application", "/api/verifisere/*").permitAll()
                         .requestMatchers("/admin/*").hasRole("ADMIN")
+                        .requestMatchers("/api/applicants").hasAuthority("ROLE_ADMIN") // Endre til hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("http://localhost:3000/admin/login")
                         .clearAuthentication(true)
                         .invalidateHttpSession(true)
                         .permitAll()
@@ -63,8 +63,38 @@ public class SecurityConfig {
                 .build();
     }
 
+    /*@Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        return http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for the application
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**", "/admin/login","/api/submit-application", "/api/verifisere/*").permitAll()
+                        .requestMatchers("/admin/*").hasRole("ADMIN")
+                        .requestMatchers("/api/applicants/*").authenticated()
+                        .anyRequest().authenticated()
+                )
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                )
+                .httpBasic(Customizer.withDefaults())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("http://localhost:3000/admin/login")
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                )
+                .build();
+    }*/
+
 }
 
+//, "/api/applicants"
+
+//.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+//.logoutSuccessUrl("/login")
 
       /*.formLogin(form -> form
                         .loginProcessingUrl("/login")
