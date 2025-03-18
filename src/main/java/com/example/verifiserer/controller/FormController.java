@@ -1,48 +1,40 @@
 package com.example.verifiserer.controller;
 
 import com.example.verifiserer.model.Applicant;
-import com.example.verifiserer.repository.ApplicantRepository;
+import com.example.verifiserer.service.ApplicantService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3002") // Allow frontend from localhost:3002
 public class FormController {
-    private final ApplicantRepository applicantRepository;
 
-    public FormController(ApplicantRepository applicantRepository){
-        this.applicantRepository = applicantRepository;
+    private final ApplicantService applicantService;
+
+    // Constructor injection for ApplicantService
+    @Autowired
+    public FormController(ApplicantService applicantService) {
+        this.applicantService = applicantService;
     }
 
     @PostMapping("/submit-application")
     public ResponseEntity<?> submitApplication(
             @RequestParam("fullName") String fullName,
             @RequestParam("email") String email,
-            @RequestParam("phone") String phone) //,
-            /*@RequestParam("cv") MultipartFile cv)*/{
-
+            @RequestParam("phone") String phone,
+            @RequestParam("cv") MultipartFile cv) {
 
         if (fullName.isEmpty() || email.isEmpty() || phone.isEmpty()) {
             return ResponseEntity.badRequest().body(new ErrorResponse("Alle feltene er obligatoriske"));
         }
 
         try {
-            /*if (cv != null && !cv.isEmpty()) {
-                String fileName = cv.getOriginalFilename();
-                cv.transferTo(new java.io.File("/path/to/save/" + fileName));
-            }*/
-            Applicant applicant = new Applicant();
-            applicant.setName(fullName);
-            applicant.setEmail(email);
-            applicant.setPhone(phone);
-
-            // Lagre søkeren i databasen
-            applicantRepository.save(applicant);
+            // Delegate to the service for saving the applicant and handling the CV
+            applicantService.saveApplicant(fullName, email, phone, cv);
 
             return ResponseEntity.ok("Søknad mottatt");
         } catch (Exception e) {
