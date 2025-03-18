@@ -105,29 +105,7 @@ public class ResponseService {
     }
 
 
-    public String encrypt() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(256); // 256-bit kryptering
-        SecretKey secretKey = keyGenerator.generateKey();
 
-        // Originale data (f.eks. din _sd-liste)
-        String plaintext = "[\"TxWXz65yixT9VGSha3r5Ppd5mWqNDeiSypI8CWYGdck\", \"zUJfFVAoacx4yVbGj8QGCw4KxSC36-QeZ7ZDitYqcP0\"]";
-
-        // Krypter data
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-        byte[] iv = new byte[12]; // Initialiseringsvektor (må være unik for hver melding)
-        GCMParameterSpec parameterSpec = new GCMParameterSpec(128, iv);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec);
-
-        byte[] encryptedBytes = cipher.doFinal(plaintext.getBytes());
-        String encryptedText = Base64.getEncoder().encodeToString(encryptedBytes);
-        String encodedKey = Base64.getEncoder().encodeToString(secretKey.getEncoded());
-
-        System.out.println("Nøkkel: " + encodedKey);
-        return encryptedText;
-
-
-    }
 
 
 

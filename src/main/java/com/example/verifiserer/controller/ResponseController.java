@@ -23,7 +23,7 @@ public class ResponseController {
     @PostMapping("/callback")
     public String callBack(@RequestBody String requestBody){
         test = requestBody;
-        return "Successfully";
+        return test;
     }
 
     @GetMapping("/testerCallbacken")
@@ -95,17 +95,6 @@ public class ResponseController {
         }
     }
 
-    @GetMapping("/test")
-    public String testEnEd() {
-        try {
-            return responseService.encrypt();
-        } catch (NullPointerException e) {
-            return "Feil: responseService eller input er null!";
-        } catch (SecurityException e) {
-            return "Feil: Krypteringsfeil - sikkerhetsproblem!";
-        } catch (Exception e) {
-            return "Feil: Uventet feil oppstod under kryptering: " + e.getMessage();
-        }
-    }
+    
 
 }
