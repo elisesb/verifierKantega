@@ -9,11 +9,9 @@ import com.example.verifiserer.repository.VitnemalRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
 
 import java.nio.charset.StandardCharsets;
@@ -110,7 +108,7 @@ public class DiplomaSortService {
         }
     }
 
-    public String savePersonligData(Map<String, Object> personligListe){
+    public Long savePersonligData(Map<String, Object> personligListe){
         String navn = String.valueOf(personligListe.get("navn"));
         String fodselsnummer = String.valueOf(personligListe.get("fodselsnummer"));
         String fullfort = String.valueOf(personligListe.get("fullfort"));
@@ -121,19 +119,20 @@ public class DiplomaSortService {
         Vitnemal vitnemal = new Vitnemal(navn, fodselsnummer, Boolean.parseBoolean(fullfort), utdanningsnavn, grad, Integer.parseInt(sum));
         vitnemalRepository.save(vitnemal);
 
-        return "ok";
+
+        return vitnemal.getId();
 
 
     }
 
-    public String saveKarakterData(List<Map<String, Object>> karakterListe) {
+    public String saveKarakterData(List<Map<String, Object>> karakterListe, Long id) {
         for (Map<String, Object> karakter : karakterListe) {
             String emnekode = String.valueOf(karakter.get("emnekode"));
             String karakterVitnemal = String.valueOf(karakter.get("karakter"));
             String arstall = String.valueOf(karakter.get("arstall"));
             String poeng = String.valueOf(karakter.get("poeng"));
             String fag = String.valueOf(karakter.get("fag"));
-            Karakter karakter1 = new Karakter(fag, emnekode, karakterVitnemal, Integer.parseInt(poeng), Integer.parseInt(arstall));
+            Karakter karakter1 = new Karakter(id, fag, emnekode, karakterVitnemal, Integer.parseInt(poeng), Integer.parseInt(arstall));
             karakterRepository.save(karakter1);
 
         }

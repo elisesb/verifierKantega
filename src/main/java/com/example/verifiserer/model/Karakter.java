@@ -25,12 +25,16 @@ public class Karakter {
     @Column(nullable = false)
     private int arstall;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "diploma_id")
-    private Vitnemal vitnemal;
+    private Vitnemal vitnemal;*/
+
+    @Column(nullable = false)
+    private Long vitnemalId;
 
     // Konstruktør med argumenter
-    public Karakter(String fag, String emnekode, String karakter, int poeng, int arstall) {
+    public Karakter(Long vitnemalId, String fag, String emnekode, String karakter, int poeng, int arstall) {
+        this.vitnemalId = vitnemalId;
         this.fag = fag;
         this.emnekode = emnekode;
         this.karakter = karakter;
@@ -89,11 +93,18 @@ public class Karakter {
         this.arstall = arstall;
     }
 
-    public Vitnemal getVitnemal() {
+    /*public Vitnemal getVitnemal() {
         return vitnemal;
     }
 
     public void setVitnemal(Vitnemal vitnemal) {
         this.vitnemal = vitnemal;
+    }*/
+
+    public Long getVitnemalId() {
+        return vitnemalId;
+    }
+    public void setVitnemalId(Long vitnemalId) {
+        this.vitnemalId = vitnemalId;
     }
 }
