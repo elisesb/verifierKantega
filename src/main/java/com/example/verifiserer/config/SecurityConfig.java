@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for the application
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**", "/admin/**","/api/submit-application", "/api/verifisere/*", "/cv/**").permitAll()
+                        .requestMatchers("/h2-console/**", "/admin/**","/api/submit-application", "/api/verifisere/*", "/cv/**", "/api/credentials/extract").permitAll()
                         .requestMatchers("/admin/*").hasRole("ADMIN")
                         .requestMatchers("/api/applicants").permitAll()/*.hasAuthority("ROLE_ADMIN")*/ // Endre til hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()

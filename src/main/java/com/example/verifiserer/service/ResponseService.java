@@ -86,13 +86,13 @@ public class ResponseService {
     }
 
 
-    public static List<String> extractSd(String json) throws IOException {
+    public static List<String> extractName(String json) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(json);
 
         List<String> sdList = new ArrayList<>();
 
-        JsonNode sdNode = rootNode.path("iss").path("vc").path("credentialSubject");
+        JsonNode sdNode = rootNode.path("vc").path("credentialSubject");
 
 
         if (sdNode.isArray()) {
@@ -104,27 +104,63 @@ public class ResponseService {
         return sdList;
     }
 
-    public String getNameFromToken(String token) {
-        try {
-            String payload = getTokenPayload2(token); // Henter payload
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(payload);
 
-            // Navigerer til vc -> credentialSubject -> navn
-            return jsonNode.path("vc")
-                    //.path("credentialSubject")
-                    //.path("navn")
-                    .asText();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Feil ved parsing av token";
-        }
+/*
+// make a method that takes care of jwt data
+    public String getJwtData(String jwt) {
+        String[] parts = jwt.split("\\.");
+        String header = new String(Base64.getUrlDecoder().decode(parts[0]));
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+        String signature = parts[2];
+
+        return "Header: " + header + "\nPayload: " + payload + "\nSignature: " + signature;
     }
 
+    public String getJwtData2(String jwt) {
+        String[] parts = jwt.split("\\.");
+        String header = new String(Base64.getUrlDecoder().decode(parts[0]));
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+        String signature = parts[2];
 
+        return "Header: " + header + "\nPayload: " + payload + "\nSignature: " + signature;
+    }
 
+    public String getJwtData3(String jwt) {
+        String[] parts = jwt.split("\\.");
+        String header = new String(Base64.getUrlDecoder().decode(parts[0]));
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+        String signature = parts[2];
 
+        return "Header: " + header + "\nPayload: " + payload + "\nSignature: " + signature;
+    }
 
+    public String getJwtData4(String jwt) {
+        String[] parts = jwt.split("\\.");
+        String header = new String(Base64.getUrlDecoder().decode(parts[0]));
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+        String signature = parts[2];
+
+        return "Header: " + header + "\nPayload: " + payload + "\nSignature: " + signature;
+    }
+
+    public String getJwtData5(String jwt) {
+        String[] parts = jwt.split("\\.");
+        String header = new String(Base64.getUrlDecoder().decode(parts[0]));
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+        String signature = parts[2];
+
+        return "Header: " + header + "\nPayload: " + payload + "\nSignature: " + signature;
+    }
+
+    public String getJwtData6(String jwt) {
+        String[] parts = jwt.split("\\.");
+        String header = new String(Base64.getUrlDecoder().decode(parts[0]));
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+        String signature = parts[2];
+
+        return "Header:
+
+*/
 
 
 }

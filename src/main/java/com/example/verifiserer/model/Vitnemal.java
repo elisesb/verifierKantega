@@ -1,41 +1,46 @@
 package com.example.verifiserer.model;
 
 import jakarta.persistence.*;
+
 @Entity
-@Table(name = "diploma")
+@Table(name = "vitnemal")
 public class Vitnemal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
+    @Column(nullable = false)
+    private String navn;
 
-    @ManyToOne
-    @JoinColumn(name = "institution_id", nullable = false)
-    private Institution institution;
+    @Column(nullable = false, unique = true)
+    private String fodselsnummer;
 
-    @Column(name = "degree_name", nullable = false)
-    private String degreeName;
+    @Column(nullable = false)
+    private boolean fullfort;
 
-    @Column(name = "graduation_date", nullable = false)
-    private String graduationDate;
+    @Column(nullable = false)
+    private String utdanningsnavn;
 
-    public Vitnemal(Long id, Student student, Institution institution, String degreeName, String graduationDate) {
-        this.id = id;
-        this.student = student;
-        this.institution = institution;
-        this.degreeName = degreeName;
-        this.graduationDate = graduationDate;
+    @Column(nullable = false)
+    private String grad;
+
+    @Column(nullable = false)
+    private int sum;
+
+    // Konstruktører
+    public Vitnemal() {}
+
+    public Vitnemal(String navn, String fodselsnummer, boolean fullfort, String utdanningsnavn, String grad, int sum) {
+        this.navn = navn;
+        this.fodselsnummer = fodselsnummer;
+        this.fullfort = fullfort;
+        this.utdanningsnavn = utdanningsnavn;
+        this.grad = grad;
+        this.sum = sum;
     }
 
-    public Vitnemal() {
-
-    }
-
-    // Getters and Setters
-
+    // Getters og Setters
     public Long getId() {
         return id;
     }
@@ -44,35 +49,52 @@ public class Vitnemal {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getNavn() {
+        return navn;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setNavn(String navn) {
+        this.navn = navn;
     }
 
-    public Institution getInstitution() {
-        return institution;
+    public String getFodselsnummer() {
+        return fodselsnummer;
     }
 
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
+    public void setFodselsnummer(String fodselsnummer) {
+        this.fodselsnummer = fodselsnummer;
     }
 
-    public String getDegreeName() {
-        return degreeName;
+    public boolean isFullfort() {
+        return fullfort;
     }
 
-    public void setDegreeName(String degreeName) {
-        this.degreeName = degreeName;
+    public void setFullfort(boolean fullfort) {
+        this.fullfort = fullfort;
     }
 
-    public String getGraduationDate() {
-        return graduationDate;
+    public String getUtdanningsnavn() {
+        return utdanningsnavn;
     }
 
-    public void setGraduationDate(String graduationDate) {
-        this.graduationDate = graduationDate;
+    public void setUtdanningsnavn(String utdanningsnavn) {
+        this.utdanningsnavn = utdanningsnavn;
     }
+
+    public String getGrad() {
+        return grad;
+    }
+
+    public void setGrad(String grad) {
+        this.grad = grad;
+    }
+
+    public int getSum() {
+        return sum;
+    }
+
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
 }

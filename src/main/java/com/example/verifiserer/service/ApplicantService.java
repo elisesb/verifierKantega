@@ -1,7 +1,6 @@
 package com.example.verifiserer.service;
 import com.example.verifiserer.model.Applicant;
 import com.example.verifiserer.model.Cv;
-import com.example.verifiserer.model.Karakter;
 import com.example.verifiserer.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,17 +13,14 @@ import java.util.List;
 public class ApplicantService {
     private final ApplicantRepository applicantRepository;
     private final CvRepository cvRepository;  // Repository for CV data
-    private final DiplomaRepository diplomaRepository;  // Repository for Diploma data
-    private final InstitutionRepository institutionRepository;  // Repository for Institution data
-    private final KarakterRepository karakterRepository;
 
 
-    public ApplicantService(ApplicantRepository applicantRepository, CvRepository cvRepository, DiplomaRepository diplomaRepository, InstitutionRepository institutionRepository, KarakterRepository karakterRepository) {
+
+    public ApplicantService(ApplicantRepository applicantRepository, CvRepository cvRepository) {
         this.applicantRepository = applicantRepository;
-        this.diplomaRepository = diplomaRepository;
-        this.institutionRepository = institutionRepository;
+
         this.cvRepository = cvRepository;
-        this.karakterRepository = karakterRepository;
+
 
     }
 
