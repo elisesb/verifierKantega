@@ -1,7 +1,10 @@
 package com.example.verifiserer.repository;
 
-import org.springframework.stereotype.Repository;
+import com.example.verifiserer.model.Karakter;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class KarakterRepository {
+import java.util.Optional;
+
+public interface KarakterRepository extends JpaRepository<Karakter, Long> {
+    Optional<Karakter> findById(Long id);
 }

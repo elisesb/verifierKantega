@@ -1,44 +1,46 @@
 package com.example.verifiserer.model;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "grade")
-
+@Table(name = "karakter")
 public class Karakter {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String fag;
+
+    @Column(nullable = false)
+    private String emnekode;
+
+    @Column(nullable = false)
+    private String karakter;
+
+    @Column(nullable = false)
+    private int poeng;
+
+    @Column(nullable = false)
+    private int arstall;
+
     @ManyToOne
-    @JoinColumn(name = "diploma_id", nullable = false)
-    private Vitnemal diploma;
+    @JoinColumn(name = "diploma_id")
+    private Vitnemal vitnemal;
 
-    @Column(name = "course_name", nullable = false)
-    private String courseName;
-
-    @Column(name = "course_code", nullable = false)
-    private String courseCode;
-
-    @Column(nullable = false)
-    private String grade;
-
-    @Column(nullable = false)
-    private int year;
-
-    public Karakter(Long id, Vitnemal diploma, String courseName, String courseCode, String grade, int year) {
-        this.id = id;
-        this.diploma = diploma;
-        this.courseName = courseName;
-        this.courseCode = courseCode;
-        this.grade = grade;
-        this.year = year;
+    // Konstruktør med argumenter
+    public Karakter(String fag, String emnekode, String karakter, int poeng, int arstall) {
+        this.fag = fag;
+        this.emnekode = emnekode;
+        this.karakter = karakter;
+        this.poeng = poeng;
+        this.arstall = arstall;
     }
 
-    public Karakter() {
+    public Karakter() {}
 
-    }
-    // Getters and Setters
-
+    // Getters og Setters
     public Long getId() {
         return id;
     }
@@ -47,44 +49,51 @@ public class Karakter {
         this.id = id;
     }
 
-    public Vitnemal getDiploma() {
-        return diploma;
+    public String getFag() {
+        return fag;
     }
 
-    public void setDiploma(Vitnemal diploma) {
-        this.diploma = diploma;
+    public void setFag(String fag) {
+        this.fag = fag;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getEmnekode() {
+        return emnekode;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setEmnekode(String emnekode) {
+        this.emnekode = emnekode;
     }
 
-    public String getCourseCode() {
-        return courseCode;
+    public String getKarakter() {
+        return karakter;
     }
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
+    public void setKarakter(String karakter) {
+        this.karakter = karakter;
     }
 
-    public String getGrade() {
-        return grade;
+    public int getPoeng() {
+        return poeng;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public void setPoeng(int poeng) {
+        this.poeng = poeng;
     }
 
-    public int getYear() {
-        return year;
+    public int getArstall() {
+        return arstall;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setArstall(int arstall) {
+        this.arstall = arstall;
+    }
+
+    public Vitnemal getVitnemal() {
+        return vitnemal;
+    }
+
+    public void setVitnemal(Vitnemal vitnemal) {
+        this.vitnemal = vitnemal;
     }
 }
-// Getters and Setters
