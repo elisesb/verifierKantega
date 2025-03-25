@@ -92,7 +92,7 @@ public class ResponseService {
 
         List<String> sdList = new ArrayList<>();
 
-        JsonNode sdNode = rootNode.path("vc").path("credentialSubject").path("_sd");
+        JsonNode sdNode = rootNode.path("iss").path("vc").path("credentialSubject");
 
 
         if (sdNode.isArray()) {
@@ -102,6 +102,23 @@ public class ResponseService {
         }
 
         return sdList;
+    }
+
+    public String getNameFromToken(String token) {
+        try {
+            String payload = getTokenPayload2(token); // Henter payload
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(payload);
+
+            // Navigerer til vc -> credentialSubject -> navn
+            return jsonNode.path("vc")
+                    //.path("credentialSubject")
+                    //.path("navn")
+                    .asText();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Feil ved parsing av token";
+        }
     }
 
 
