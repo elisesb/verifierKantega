@@ -1,16 +1,19 @@
 package com.example.verifiserer.controller;
 
+import com.example.verifiserer.dto.VitnemalResponseDTO;
+import com.example.verifiserer.model.Karakter;
+import com.example.verifiserer.model.Vitnemal;
+import com.example.verifiserer.repository.KarakterRepository;
 import com.example.verifiserer.repository.VitnemalRepository;
 import com.example.verifiserer.service.DiplomaSortService;
 import com.example.verifiserer.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/verifisere")
@@ -21,13 +24,15 @@ public class ResponseController {
     private final ResponseService responseService;
     private final DiplomaSortService diplomaSortService;
     private final VitnemalRepository vitnemalRepository;
+    private final KarakterRepository karakterRepository;
 
 
     @Autowired
-    public ResponseController(ResponseService responseService, DiplomaSortService diplomaSortService, VitnemalRepository vitnemalRepository) {
+    public ResponseController(ResponseService responseService, DiplomaSortService diplomaSortService, VitnemalRepository vitnemalRepository, KarakterRepository karakterRepository) {
         this.responseService = responseService;
         this.diplomaSortService = diplomaSortService;
         this.vitnemalRepository = vitnemalRepository;
+        this.karakterRepository = karakterRepository;
     }
 
     @PostMapping("/callback")
@@ -56,12 +61,59 @@ public class ResponseController {
 
     }
 
-    @GetMapping("/fromDatabase/{id}")
+    /*@GetMapping("/fromDatabase/{id}")
     public String fromDatabase(@PathVariable Long id) {
+        Optional<Vitnemal>  vitnemalperson = vitnemalRepository.findById(id);
+
+        List <Karakter> totalKarakterliste = new ArrayList<>();
+        totalKarakterliste = karakterRepository.findAll();
+
+        List<Karakter> personligKarakterliste = new ArrayList<>();
+
+        for (Karakter karakter : totalKarakterliste) {
+            if (id.equals(karakter.getVitnemalId())) {
+                personligKarakterliste.add(karakter);
+            }
+        }
 
 
-        return "Hentet data for ID: " + id;
+
+        return vitnemalperson.toString();
+    }*/
+
+    /*GetMapping("/fromDatabase/{id}")
+    public ResponseEntity<VitnemalResponseDTO> fromDatabase(@PathVariable Long id) {
+        Optional<Vitnemal> vitnemalperson = vitnemalRepository.findById(id);
+
+        List<Karakter> totalKarakterliste = karakterRepository.findAll();
+
+        List<Karakter> personligKarakterliste = totalKarakterliste.stream()
+                .filter(karakter -> id.equals(karakter.getVitnemalId()))
+                .collect(Collectors.toList());
+
+        VitnemalResponseDTO response = new VitnemalResponseDTO(vitnemalperson, personligKarakterliste);
+
+        return ResponseEntity.ok(response);
+    }*/
+    @GetMapping("/fromDatabase/{id}")
+    public ResponseEntity<VitnemalResponseDTO> fromDatabase(@PathVariable Long id) {
+        Optional<Vitnemal> vitnemalperson = vitnemalRepository.findById(id);
+
+        if (vitnemalperson.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+
+        List<Karakter> personligKarakterliste = karakterRepository.findAll()
+                .stream()
+                .filter(karakter -> id.equals(karakter.getVitnemalId()))
+                .collect(Collectors.toList());
+        VitnemalResponseDTO response = new VitnemalResponseDTO(vitnemalperson.get(), personligKarakterliste);
+
+        return ResponseEntity.ok(response);
     }
+
+
     @GetMapping("/testerCallbacken")
     public String getTestValue() {
         return test;
