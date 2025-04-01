@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/verifisere")
 public class ResponseController {
 
-
-
     private final ResponseService responseService;
     private final DiplomaSortService diplomaSortService;
     private final VitnemalRepository vitnemalRepository;
@@ -66,7 +64,6 @@ public class ResponseController {
         if (vitnemalperson.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
 
         List<Karakter> personligKarakterliste = karakterRepository.findAll()
                 .stream()
