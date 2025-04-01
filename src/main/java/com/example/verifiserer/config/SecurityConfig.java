@@ -46,19 +46,48 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .cors(cors -> cors.disable())
-                //.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .cors(AbstractHttpConfigurer::disable) // Disable CORS
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/h2-console/**",
+                                "/api/submit-application",
+                                "/api/**",
+                                "/cv/**"
+                                //"/api/credentials/extract",
+                                //"/api/applicants",
+                                //"/api/verifisere/callback"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .httpBasic(Customizer.withDefaults())
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("http://localhost:3000/admin/login")
+                        .clearAuthentication(true)
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                )
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+
+    /*@Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors(AbstractHttpConfigurer::disable)
+
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for the application
                 .authorizeHttpRequests(auth -> auth
 
-                        //.requestMatchers("/admin/*").hasRole("ADMIN")
-                        .requestMatchers("/h2-console/**", "/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants", "/api/verifisere/callback").permitAll()
 
-                        //.requestMatchers("/api/applicants").permitAll()/*.hasAuthority("ROLE_ADMIN")*/ // Endre til hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/h2-console/**", "/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants", "/api/verifisere/callback").permitAll()
+                        .requestMatchers("/admin/*").hasRole("ADMIN")
                         .anyRequest().authenticated()
 
                 )
@@ -75,7 +104,7 @@ public class SecurityConfig {
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-    }
+    }*/
 
 
 }

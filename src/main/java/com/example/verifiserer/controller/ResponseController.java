@@ -43,7 +43,6 @@ public class ResponseController {
             List<Map<String, Object>> karakterData =
                     diplomaSortService.hentKarakterer(diplomaSortService.getStringDiploma(requestBody));
 
-
             Map<String, Object> personligData =
                     diplomaSortService.hentPersonInfo(diplomaSortService.getStringDiploma(requestBody));
             Long personId= diplomaSortService.savePersonligData(personligData);
@@ -138,8 +137,5 @@ public class ResponseController {
             return "Feil ved henting av token header: \"" + e;
         }
     }
-
-
-
 
 }
