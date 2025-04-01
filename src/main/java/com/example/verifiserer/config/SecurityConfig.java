@@ -1,5 +1,6 @@
 package com.example.verifiserer.config;
 
+import com.example.verifiserer.security.jwt.JwtRequestFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -25,7 +27,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-// trenges dette?
+
+    private final JwtRequestFilter jwtRequestFilter;
+
+
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -47,10 +56,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         //.requestMatchers("/admin/*").hasRole("ADMIN")
+                        .requestMatchers("/h2-console/**", "/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants", "/api/verifisere/callback").permitAll()
 
                         //.requestMatchers("/api/applicants").permitAll()/*.hasAuthority("ROLE_ADMIN")*/ // Endre til hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
-                        .requestMatchers("/h2-console/**", "/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants", "/api/verifisere/callback").permitAll()
+
                 )
                 .headers(headers -> headers
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
@@ -63,6 +73,7 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .permitAll()
                 )
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
