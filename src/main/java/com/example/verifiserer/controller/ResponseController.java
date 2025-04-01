@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/verifisere")
 public class ResponseController {
-    //ønsker å teste om dataen blir slettet
+
 
 
     private final ResponseService responseService;
