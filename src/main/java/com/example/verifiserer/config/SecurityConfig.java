@@ -44,7 +44,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for the application
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**", "/admin/**","/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants", "https://verifierkantega.onrender.com/api/verifisere/").permitAll()
+                        //.requestMatchers("/h2-console/**", "/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants").permitAll()
+                        .requestMatchers("/api/verifisere/**").permitAll()
+
                         .requestMatchers("/admin/*").hasRole("ADMIN")
                         //.requestMatchers("/api/applicants").permitAll()/*.hasAuthority("ROLE_ADMIN")*/ // Endre til hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
