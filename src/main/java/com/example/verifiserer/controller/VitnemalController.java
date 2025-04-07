@@ -36,6 +36,15 @@ public class VitnemalController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    @GetMapping("/vitnemal/{id}")
+    public ResponseEntity<Vitnemal> getVitnemal(@PathVariable Long id) {
+        Vitnemal vitnemal = getDiplomaDataService.getVitnemalById(id);
+        if (vitnemal != null) {
+            return ResponseEntity.ok(vitnemal);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
 
 /*@RestController

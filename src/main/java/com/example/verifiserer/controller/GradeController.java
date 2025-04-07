@@ -48,6 +48,10 @@ public class GradeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    @GetMapping("/grades/{diplomaId}")
+    public List<Karakter> getGradesByDiplomaId(@PathVariable Long diplomaId) {
+        return gradeService.getGradesByDiplomaId(diplomaId);
+    }
 
 }
 
