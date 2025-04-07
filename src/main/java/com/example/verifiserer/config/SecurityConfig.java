@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
 
-                        .requestMatchers("/h2-console/**", "/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants", "/api/verifisere/callback", "/admin/login", "/api/poengsum", "/karaktersum").permitAll()
+                        .requestMatchers("/h2-console/**", "/api/submit-application", "/api/verifisere/**", "/cv/**", "/api/credentials/extract","/api/applicants", "/api/verifisere/callback", "/admin/login", "/api/**").permitAll()
                         .requestMatchers("/admin/*").hasRole("ADMIN")
                         .anyRequest().authenticated()
 
