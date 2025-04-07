@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface VitnemalRepository extends JpaRepository<Vitnemal, Long> {
     Optional<Vitnemal> findById(Long id);
+    Vitnemal findByFodselsnummer(String fodselsnummer);
 }

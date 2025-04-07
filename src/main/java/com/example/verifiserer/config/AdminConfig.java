@@ -34,7 +34,7 @@ public class AdminConfig {
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
                 .username(username)
-                .password(passwordEncoder().encode(password)) 
+                .password(passwordEncoder().encode(password))
                 .roles(role)
                 .build();
 
