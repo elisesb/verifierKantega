@@ -46,36 +46,3 @@ public class VitnemalController {
         }
     }
 }
-
-/*@RestController
-@RequestMapping("/api")
-public class VitnemalController {
-
-    private final GetDiplomaDataService getDiplomaDataService;
-
-    @Autowired
-    public VitnemalController(GetDiplomaDataService getDiplomaDataService) {
-        this.getDiplomaDataService = getDiplomaDataService;
-    }
-
-
-    @GetMapping("/vitnemal")
-    public ResponseEntity<Vitnemal> getVitnemal(@PathVariable Long id) {
-        Vitnemal vitnemal = getDiplomaDataService.getVitnemalById(id);
-        if (vitnemal != null) {
-            return ResponseEntity.ok(vitnemal);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/sum")
-    public ResponseEntity<Integer> getSumDiploma(@PathVariable Long id) {
-        try {
-            int sum = getDiplomaDataService.getsumDiploma(id);
-            return ResponseEntity.ok(sum);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Hvis vitnemal ikke finnes
-        }
-    }
-}*/

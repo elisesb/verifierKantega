@@ -24,6 +24,7 @@ public class ResponseController {
     private final VitnemalRepository vitnemalRepository;
     private final KarakterRepository karakterRepository;
     public String respons;
+    private boolean callbackReceived = false;
 
 
     @Autowired
@@ -36,7 +37,9 @@ public class ResponseController {
 
     @PostMapping("/callback")
     public String callBack(@RequestBody String requestBody){
+        callbackReceived = true;
         try {
+
             respons = requestBody;
             List<Map<String, Object>> karakterData =
                     diplomaSortService.hentKarakterer(diplomaSortService.getStringDiploma(requestBody));
@@ -57,6 +60,12 @@ public class ResponseController {
         return "Callback mottatt";
 
     }
+
+    @GetMapping("/callbackStatus")
+    public boolean isCallbackReceived() {
+        return callbackReceived;
+    }
+
     @GetMapping("/fromDatabase/{id}")
     public ResponseEntity<VitnemalResponseDTO> fromDatabase(@PathVariable Long id) {
         Optional<Vitnemal> vitnemalperson = vitnemalRepository.findById(id);

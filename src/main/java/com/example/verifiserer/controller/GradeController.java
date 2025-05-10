@@ -55,30 +55,3 @@ public class GradeController {
 
 }
 
-/*@RestController
-public class GradeController {
-
-    private final GradeService gradeService;
-
-
-    @Autowired
-    public GradeController(GradeService gradeService) {
-        this.gradeService = gradeService;
-
-    }
-
-    @GetMapping("/grades/{diplomaId}")
-    public List<Karakter> getGradesByDiplomaId(@PathVariable Long diplomaId) {
-        return gradeService.getGradesByDiplomaId(diplomaId);
-    }
-    @GetMapping("/karaktersum/{id}")
-    public ResponseEntity<Double> getSumDiploma(@PathVariable Long id) {
-        try {
-            double sum = gradeService.getsumDiploma(id);
-            return ResponseEntity.ok(sum);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-
-}*/

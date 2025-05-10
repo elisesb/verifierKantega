@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3002") // Allow frontend from localhost:3002
+//@CrossOrigin(origins = "http://localhost:3002")
 public class FormController {
 
     private final ApplicantService applicantService;
