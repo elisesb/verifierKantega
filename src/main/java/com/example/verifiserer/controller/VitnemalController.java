@@ -73,13 +73,13 @@ public class VitnemalController {
 
     @GetMapping("/grades/{diplomaId}")
     public List<Karakter> getGradesByDiplomaId(@PathVariable Long diplomaId) {
-        return gradeService.getGradesByDiplomaId(diplomaId);
+        return diplomaSortService.getGradesByDiplomaId(diplomaId);
     }
 
 
     @GetMapping("/vitnemal/{id}")
     public ResponseEntity<Vitnemal> getVitnemal(@PathVariable Long id) {
-        Vitnemal vitnemal = getDiplomaDataService.getVitnemalById(id);
+        Vitnemal vitnemal = diplomaSortService.getVitnemalById(id);
         if (vitnemal != null) {
             return ResponseEntity.ok(vitnemal);
         } else {

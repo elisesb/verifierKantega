@@ -32,6 +32,25 @@ public class DiplomaSortService {
         this.karakterRepository = karakterRepository;
     }
 
+
+
+
+    public Vitnemal getVitnemalById(Long id) {
+        Optional<Vitnemal> vitnemal = vitnemalRepository.findById(id);
+        return vitnemal.orElse(null);
+    }
+
+    public List<Karakter> getGradesByDiplomaId(Long diplomaId) {
+        List<Karakter> myKarakterList = new ArrayList<>();
+        for (Karakter karakter : karakterRepository.findAll()) {
+            if (karakter.getVitnemalId().equals(diplomaId)) {
+                myKarakterList.add(karakter);
+
+            }
+        }
+        return myKarakterList;
+    }
+
     public String getStringDiploma(String callback) {
         String token = responseService.extractToken(responseService.getTokenPayload(callback));
         try {

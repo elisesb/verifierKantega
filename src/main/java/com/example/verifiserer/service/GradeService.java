@@ -35,7 +35,7 @@ public class GradeService {
         return myKarakterList;
     }
 
-    public Map<Vitnemal,List<Karakter>> getAllGradesMappedByDiploma(){
+    /*public Map<Vitnemal,List<Karakter>> getAllGradesMappedByDiploma(){
         Map<Vitnemal, List<Karakter>> gradesMap = new HashMap<>();
         List<Vitnemal> vitnemalList = vitnemalRepository.findAll();
         for (Vitnemal vitnemal : vitnemalList) {
@@ -117,6 +117,6 @@ public class GradeService {
         }
 
         return sums;
-    }
+    }*/
 
 }
