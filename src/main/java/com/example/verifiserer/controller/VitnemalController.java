@@ -5,8 +5,7 @@ import com.example.verifiserer.model.Vitnemal;
 import com.example.verifiserer.repository.KarakterRepository;
 import com.example.verifiserer.repository.VitnemalRepository;
 import com.example.verifiserer.service.DiplomaSortService;
-import com.example.verifiserer.service.GetDiplomaDataService;
-import com.example.verifiserer.service.GradeService;
+
 import com.example.verifiserer.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,23 +19,21 @@ import java.util.Map;
 @RequestMapping("/api/verifisere")
 public class VitnemalController {
 
-    private final GetDiplomaDataService getDiplomaDataService;
     private final ResponseService responseService;
     private final DiplomaSortService diplomaSortService;
     private final VitnemalRepository vitnemalRepository;
     private final KarakterRepository karakterRepository;
     public String respons;
     private boolean callbackReceived = false;
-    private final GradeService gradeService;
+
 
     @Autowired
-    public VitnemalController(GetDiplomaDataService getDiplomaDataService, ResponseService responseService, DiplomaSortService diplomaSortService, VitnemalRepository vitnemalRepository, KarakterRepository karakterRepository, GradeService gradeService) {
-        this.getDiplomaDataService = getDiplomaDataService;
+    public VitnemalController(ResponseService responseService, DiplomaSortService diplomaSortService, VitnemalRepository vitnemalRepository, KarakterRepository karakterRepository) {
         this.responseService = responseService;
         this.diplomaSortService = diplomaSortService;
         this.vitnemalRepository = vitnemalRepository;
         this.karakterRepository = karakterRepository;
-        this.gradeService = gradeService;
+
     }
 
     @PostMapping("/callback")

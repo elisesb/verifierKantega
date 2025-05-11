@@ -33,8 +33,6 @@ public class DiplomaSortService {
     }
 
 
-
-
     public Vitnemal getVitnemalById(Long id) {
         Optional<Vitnemal> vitnemal = vitnemalRepository.findById(id);
         return vitnemal.orElse(null);
@@ -54,15 +52,13 @@ public class DiplomaSortService {
     public String getStringDiploma(String callback) {
         String token = responseService.extractToken(responseService.getTokenPayload(callback));
         try {
-            // Hent ut "vc" -> "credentialSubject"
+
             JsonNode credentialSubject = getTokenPayload2(token).path("vc").path("credentialSubject");
 
             if (credentialSubject.isMissingNode()) {
 
                 return ("Missing 'credentialSubject' field in payload");
             }
-
-            // Returner kun "credentialSubject"
             ObjectMapper objectMapper = new ObjectMapper();
             String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(credentialSubject);
 
