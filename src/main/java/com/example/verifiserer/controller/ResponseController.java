@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/verifisere")
+@RequestMapping("/api/heeei")
 public class ResponseController {
 
     private final ResponseService responseService;

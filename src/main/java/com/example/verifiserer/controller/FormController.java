@@ -10,12 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api")
-//@CrossOrigin(origins = "http://localhost:3002")
+
 public class FormController {
 
     private final ApplicantService applicantService;
 
-    // Constructor injection for ApplicantService
     @Autowired
     public FormController(ApplicantService applicantService) {
         this.applicantService = applicantService;
@@ -33,7 +32,6 @@ public class FormController {
         }
 
         try {
-            // Delegate to the service for saving the applicant and handling the CV
             applicantService.saveApplicant(fullName, email, phone, cv);
 
             return ResponseEntity.ok("Søknad mottatt");
