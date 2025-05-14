@@ -12,6 +12,14 @@ import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Denne klassen fungerer som en REST-kontroller for å håndtere API-forespørsler relatert til søkere.
+ * Den eksponerer et endepunkt /api/applicants som tillater henting av alle søkere fra databasen.
+ * Dataene mapper hver søker til en ApplicantDTO for å inkludere relevant informasjon som navn, e-post,
+ * telefonnummer, opprettelsesdato og filnavnet til søkerens CV.
+
+ * Funksjonaliteten er implementert ved hjelp av Spring Boot og følger RESTful API-prinsipper.
+ */
 
 
 @RestController

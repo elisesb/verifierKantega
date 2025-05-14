@@ -7,11 +7,18 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+/**
+ * Denne klassen er en tjenestekomponent som håndterer JWT-tokenbehandling og parsing av JSON-strukturer.
+ * Den brukes til å hente, dekode og prosessere tokens fra URL-strenger og JSON-data.
+
+ * Funksjonalitet:
+ * - Henter et token fra en tekststreng som inneholder "vp_token=".
+ * - Dekoder nyttelasten (payload) fra et JWT-token.
+ * - Ekstraherer et token fra en JSON-struktur som inneholder en "verifiableCredential".
+ */
 
 @Service
 public class ResponseService {
-
-
 
     public String getJustToken(String text){
         int start = text.indexOf("vp_token=") + 9;
@@ -37,15 +44,9 @@ public class ResponseService {
         JSONObject jsonObject = new JSONObject(jsonString);
 
 
-        String token = jsonObject.getJSONObject("vp")
+        return jsonObject.getJSONObject("vp")
                 .getJSONArray("verifiableCredential")
                 .getString(0);
-
-        return token;
     }
-
-
-
-
 
 }

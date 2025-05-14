@@ -25,9 +25,6 @@ public class Karakter {
     @Column(nullable = false)
     private int arstall;
 
-    /*@ManyToOne
-    @JoinColumn(name = "diploma_id")
-    private Vitnemal vitnemal;*/
 
     @Column(nullable = false)
     private Long vitnemalId;

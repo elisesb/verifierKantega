@@ -13,7 +13,5 @@ public interface KarakterRepository extends JpaRepository<Karakter, Long> {
 
     @Override
     List<Karakter> findAllById(Iterable<Long> longs);
-    //Long findVitnemalId(Long id);
-
 
 }

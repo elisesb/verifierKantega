@@ -25,7 +25,7 @@ public class Cv {
         this.cvPath = cvPath;
 
     }
-// Getters and Setters
+
 
     public Long getId() {
         return id;

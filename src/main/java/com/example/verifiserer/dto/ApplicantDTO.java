@@ -3,7 +3,6 @@ package com.example.verifiserer.dto;
 import java.time.LocalDateTime;
 
 public class ApplicantDTO {
-    //private Long id;
     private String name;
     private String email;
     private String phone;
@@ -11,8 +10,7 @@ public class ApplicantDTO {
     private String cvPath;
 
 
-    public ApplicantDTO(/*Long id,*/ String name, String email, String phone, LocalDateTime createdAt, String cvPath) {
-        //this.id = id;
+    public ApplicantDTO( String name, String email, String phone, LocalDateTime createdAt, String cvPath) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -20,14 +18,6 @@ public class ApplicantDTO {
         this.cvPath = cvPath;
     }
 
-
-    /*public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }*/
 
     public String getName() {
         return name;

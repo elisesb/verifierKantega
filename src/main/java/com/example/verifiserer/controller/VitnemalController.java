@@ -2,37 +2,30 @@ package com.example.verifiserer.controller;
 
 import com.example.verifiserer.model.Karakter;
 import com.example.verifiserer.model.Vitnemal;
-import com.example.verifiserer.repository.KarakterRepository;
-import com.example.verifiserer.repository.VitnemalRepository;
 import com.example.verifiserer.service.DiplomaSortService;
-
-import com.example.verifiserer.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+
+
 @RestController
 @RequestMapping("/api/verifisere")
 public class VitnemalController {
 
-    private final ResponseService responseService;
     private final DiplomaSortService diplomaSortService;
-    private final VitnemalRepository vitnemalRepository;
-    private final KarakterRepository karakterRepository;
     public String respons;
     private boolean callbackReceived = false;
 
 
     @Autowired
-    public VitnemalController(ResponseService responseService, DiplomaSortService diplomaSortService, VitnemalRepository vitnemalRepository, KarakterRepository karakterRepository) {
-        this.responseService = responseService;
+    public VitnemalController(DiplomaSortService diplomaSortService) {
+
         this.diplomaSortService = diplomaSortService;
-        this.vitnemalRepository = vitnemalRepository;
-        this.karakterRepository = karakterRepository;
+
 
     }
 
@@ -55,8 +48,7 @@ public class VitnemalController {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
-
+            return e.getMessage();
         }
         return "Callback mottatt";
 

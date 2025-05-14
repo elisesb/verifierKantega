@@ -4,7 +4,7 @@ import com.example.verifiserer.model.Karakter;
 import com.example.verifiserer.model.Vitnemal;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public class VitnemalResponseDTO {
     private Vitnemal vitnemal;

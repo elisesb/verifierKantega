@@ -17,6 +17,19 @@ import java.util.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+
+/**
+ * Denne klassen er en tjenestekomponent som håndterer logikk relatert til behandling av vitnemål og karakterer.
+ * Den inkluderer funksjonalitet for å hente, prosessere og lagre vitnemål og karakterdata, samt dekode JWT-tokens og
+ * hente informasjon fra JSON-strukturer.
+
+ * Funksjonalitet:
+ * - Henter vitnemål basert på ID.
+ * - Henter karakterer tilknyttet et spesifikt vitnemål.
+ * - Dekoder JWT-tokens for å hente nyttelast og prosessere vitnemålsdata.
+ * - Henter og strukturerer personlig informasjon og karakterer fra JSON-data.
+ * - Lagrer personlig data og karakterer i databasen.
+ */
 @Service
 public class DiplomaSortService {
 
@@ -60,9 +73,8 @@ public class DiplomaSortService {
                 return ("Missing 'credentialSubject' field in payload");
             }
             ObjectMapper objectMapper = new ObjectMapper();
-            String result = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(credentialSubject);
 
-            return result;
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(credentialSubject);
         } catch (Exception e) {
             return ("Error extracting credentialSubject: " + e.getMessage());
         }
@@ -92,7 +104,6 @@ public class DiplomaSortService {
 
             return personInfo;
         } catch (Exception e) {
-            e.printStackTrace();
             return Collections.emptyMap();
         }
     }
@@ -117,7 +128,6 @@ public class DiplomaSortService {
 
             return karakterListe;
         } catch (Exception e) {
-            e.printStackTrace();
             return Collections.emptyList();
         }
     }
