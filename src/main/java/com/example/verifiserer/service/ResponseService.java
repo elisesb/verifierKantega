@@ -38,12 +38,8 @@ public class ResponseService {
     }
 
 
-
     public String extractToken(String jsonString) {
-
         JSONObject jsonObject = new JSONObject(jsonString);
-
-
         return jsonObject.getJSONObject("vp")
                 .getJSONArray("verifiableCredential")
                 .getString(0);

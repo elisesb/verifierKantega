@@ -33,15 +33,12 @@ public class VitnemalController {
     public String callBack(@RequestBody String requestBody){
         callbackReceived = true;
         try {
-
             respons = requestBody;
             List<Map<String, Object>> karakterData =
                     diplomaSortService.hentKarakterer(diplomaSortService.getStringDiploma(requestBody));
-
             Map<String, Object> personligData =
                     diplomaSortService.hentPersonInfo(diplomaSortService.getStringDiploma(requestBody));
             Long personId= diplomaSortService.savePersonligData(personligData);
-
             String karakterResultat = diplomaSortService.saveKarakterData(karakterData, personId);
 
             System.out.println("Karakterer: " + karakterResultat + "\nPersonlig data: " + personId);

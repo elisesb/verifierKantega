@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 class FormControllerTest {
 
     @InjectMocks
@@ -55,10 +54,10 @@ class FormControllerTest {
 
         // Assert
         assertEquals(400, response.getStatusCodeValue());
-        assertTrue(response.getBody() instanceof FormController.ErrorResponse);
-        assertEquals("Alle feltene er obligatoriske", ((FormController.ErrorResponse) response.getBody()).getMessage());
+        assertTrue(response.getBody() instanceof String);
+        assertEquals("Alle feltene er obligatoriske", response.getBody());
 
-        verify(applicantService, never()).saveApplicant(anyString(), anyString(), anyString(), any(MultipartFile.class));verify(applicantService, never()).saveApplicant(anyString(), anyString(), anyString(), any(MultipartFile.class));
+        verify(applicantService, never()).saveApplicant(anyString(), anyString(), anyString(), any(MultipartFile.class));
     }
 
     @Test
@@ -76,8 +75,7 @@ class FormControllerTest {
 
         // Assert
         assertEquals(500, response.getStatusCodeValue());
-        assertTrue(response.getBody() instanceof FormController.ErrorResponse);
-        assertEquals("Noe gikk galt ved opplasting av CV", ((FormController.ErrorResponse) response.getBody()).getMessage());
+        assertTrue(response.getBody() instanceof String);
+        assertTrue(((String) response.getBody()).startsWith("Noe gikk galt ved opplasting av CV"));
     }
 }
-

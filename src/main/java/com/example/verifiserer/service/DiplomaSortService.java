@@ -93,7 +93,6 @@ public class DiplomaSortService {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> data = objectMapper.readValue(jsonString, new TypeReference<>() {});
-
             Map<String, Object> personInfo = new LinkedHashMap<>();
             personInfo.put("navn", data.get("navn"));
             personInfo.put("fodselsnummer", data.get("fodselsnummer"));
@@ -101,7 +100,6 @@ public class DiplomaSortService {
             personInfo.put("utdanningsnavn", data.get("utdanningsnavn"));
             personInfo.put("grad", data.get("grad"));
             personInfo.put("sum", data.get("sum"));
-
             return personInfo;
         } catch (Exception e) {
             return Collections.emptyMap();
@@ -125,12 +123,38 @@ public class DiplomaSortService {
                 karakterInfo.put("arstall", karakter.get("arstall"));
                 karakterListe.add(karakterInfo);
             }
-
             return karakterListe;
         } catch (Exception e) {
             return Collections.emptyList();
         }
     }
+
+    /*public List<Map<String, Object>> hentKarakterer(String jsonString) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> data = objectMapper
+                    .readValue(jsonString, new TypeReference<>() {});
+
+            List<Map<String, Object>> karakterer = objectMapper.convertValue(
+                    data.get("karakterer"),
+                    new TypeReference<List<Map<String, Object>>>() {}
+            );
+
+            List<Map<String, Object>> karakterListe = new ArrayList<>();
+            for (Map<String, Object> karakter : karakterer) {
+                Map<String, Object> karakterInfo = new LinkedHashMap<>();
+                karakterInfo.put("fag", karakter.get("fag"));
+                karakterInfo.put("emnekode", karakter.get("emnekode"));
+                karakterInfo.put("karakter", karakter.get("karakter"));
+                karakterInfo.put("poeng", karakter.get("poeng"));
+                karakterInfo.put("arstall", karakter.get("arstall"));
+                karakterListe.add(karakterInfo);
+            }
+            return karakterListe;
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }*/
 
     public Long savePersonligData(Map<String, Object> personligListe){
         String navn = String.valueOf(personligListe.get("navn"));
@@ -140,14 +164,17 @@ public class DiplomaSortService {
         String grad = String.valueOf(personligListe.get("grad"));
         String sum = String.valueOf(personligListe.get("sum"));
 
-        Vitnemal vitnemal = new Vitnemal(navn, fodselsnummer, Boolean.parseBoolean(fullfort), utdanningsnavn, grad, Integer.parseInt(sum));
+        Vitnemal vitnemal = new Vitnemal(navn,
+                fodselsnummer,
+                Boolean.parseBoolean(fullfort),
+                utdanningsnavn,
+                grad,
+                Integer.parseInt(sum));
         vitnemalRepository.save(vitnemal);
 
-
         return vitnemal.getId();
-
-
     }
+
 
     public String saveKarakterData(List<Map<String, Object>> karakterListe, Long id) {
         for (Map<String, Object> karakter : karakterListe) {
@@ -156,7 +183,12 @@ public class DiplomaSortService {
             String arstall = String.valueOf(karakter.get("arstall"));
             String poeng = String.valueOf(karakter.get("poeng"));
             String fag = String.valueOf(karakter.get("fag"));
-            Karakter karakter1 = new Karakter(id, fag, emnekode, karakterVitnemal, Integer.parseInt(poeng), Integer.parseInt(arstall));
+            Karakter karakter1 = new Karakter(id,
+                    fag,
+                    emnekode,
+                    karakterVitnemal,
+                    Integer.parseInt(poeng),
+                    Integer.parseInt(arstall));
             karakterRepository.save(karakter1);
 
         }
