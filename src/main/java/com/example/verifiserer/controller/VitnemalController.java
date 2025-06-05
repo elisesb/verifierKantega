@@ -51,6 +51,11 @@ public class VitnemalController {
 
     }
 
+    @GetMapping("/testerCallbacken")
+    public String getTestValue() {
+        return respons;
+    }
+
     @GetMapping("/callbackStatus")
     public boolean isCallbackReceived() {
         return callbackReceived;
@@ -61,6 +66,7 @@ public class VitnemalController {
     public List<Karakter> getGradesByDiplomaId(@PathVariable Long diplomaId) {
         return diplomaSortService.getGradesByDiplomaId(diplomaId);
     }
+
 
 
     @GetMapping("/vitnemal/{id}")
